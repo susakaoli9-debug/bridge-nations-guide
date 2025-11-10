@@ -8,6 +8,9 @@ import DestinationsPage from '@/features/destinations/pages/DestinationsPage';
 import ContactPage from '@/features/contact/pages/ContactPage';
 import BlogPage from '@/features/blog/pages/BlogPage';
 import GalleryPage from '@/features/gallery/pages/GalleryPage';
+import ResourcesPage from '@/features/resources/pages/ResourcesPage';
+import NewsPage from '@/features/news/pages/NewsPage';
+import FAQPage from '@/features/faq/pages/FAQPage';
 import NotFoundPage from '@/features/not-found/pages/NotFoundPage';
 
 const AppRouter = () => {
@@ -21,6 +24,9 @@ const AppRouter = () => {
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/gallery" element={<GalleryPage />} />
+        <Route path="/resources" element={<ResourcesPage />} />
+        <Route path="/news" element={<NewsPage />} />
+        <Route path="/faq" element={<FAQPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Layout>

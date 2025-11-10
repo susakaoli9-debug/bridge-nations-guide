@@ -14,6 +14,11 @@ const Header = () => {
     { path: '/about', label: t('about') },
     { path: '/services', label: t('services') },
     { path: '/destination', label: t('destination') },
+    { path: '/blog', label: 'Blog' },
+    { path: '/gallery', label: 'Gallery' },
+    { path: '/resources', label: 'Resources' },
+    { path: '/news', label: 'News' },
+    { path: '/faq', label: 'FAQ' },
     { path: '/contact', label: t('contact') },
   ];
 
