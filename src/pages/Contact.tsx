@@ -3,10 +3,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Mail, Phone, MapPin, Clock } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
+import RegistrationForm from '@/components/RegistrationForm';
 
 const Contact = () => {
   const { t } = useLanguage();
@@ -73,54 +75,67 @@ const Contact = () => {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <Card>
-              <CardHeader>
-                <CardTitle>{t('sendMessage')}</CardTitle>
-                <CardDescription>Fill out the form and we'll get back to you shortly</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="name">{t('name')}</Label>
-                    <Input
-                      id="name"
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      required
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="email">{t('email')}</Label>
-                    <Input
-                      id="email"
-                      type="email"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      required
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="phone">{t('phone')}</Label>
-                    <Input
-                      id="phone"
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      required
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="message">{t('message')}</Label>
-                    <Textarea
-                      id="message"
-                      value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      rows={5}
-                      required
-                    />
-                  </div>
-                  <Button type="submit" className="w-full">
-                    {t('sendMessage')}
-                  </Button>
-                </form>
+              <CardContent className="pt-6">
+                <Tabs defaultValue="inquiry" className="w-full">
+                  <TabsList className="grid w-full grid-cols-2 mb-6">
+                    <TabsTrigger value="inquiry">Quick Inquiry</TabsTrigger>
+                    <TabsTrigger value="registration">Student Registration</TabsTrigger>
+                  </TabsList>
+                  
+                  <TabsContent value="inquiry">
+                    <div className="space-y-2 mb-4">
+                      <h3 className="text-lg font-semibold">{t('sendMessage')}</h3>
+                      <p className="text-sm text-muted-foreground">Fill out the form and we'll get back to you shortly</p>
+                    </div>
+                    <form onSubmit={handleSubmit} className="space-y-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="name">{t('name')}</Label>
+                        <Input
+                          id="name"
+                          value={formData.name}
+                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                          required
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="email">{t('email')}</Label>
+                        <Input
+                          id="email"
+                          type="email"
+                          value={formData.email}
+                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                          required
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="phone">{t('phone')}</Label>
+                        <Input
+                          id="phone"
+                          value={formData.phone}
+                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                          required
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="message">{t('message')}</Label>
+                        <Textarea
+                          id="message"
+                          value={formData.message}
+                          onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                          rows={5}
+                          required
+                        />
+                      </div>
+                      <Button type="submit" className="w-full">
+                        {t('sendMessage')}
+                      </Button>
+                    </form>
+                  </TabsContent>
+                  
+                  <TabsContent value="registration">
+                    <RegistrationForm showTitle={false} />
+                  </TabsContent>
+                </Tabs>
               </CardContent>
             </Card>
 

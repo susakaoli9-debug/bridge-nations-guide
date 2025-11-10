@@ -4,6 +4,9 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { GraduationCap, FileCheck, Briefcase, Users, Globe, Award } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import heroImage from '@/assets/hero-education.jpg';
+import AnnouncementModal from '@/components/AnnouncementModal';
+import Testimonials from '@/components/Testimonials';
+import RegistrationForm from '@/components/RegistrationForm';
 
 const Home = () => {
   const { t } = useLanguage();
@@ -34,6 +37,8 @@ const Home = () => {
 
   return (
     <div className="flex flex-col">
+      <AnnouncementModal />
+      
       {/* Hero Section */}
       <section className="relative min-h-[600px] flex items-center justify-center overflow-hidden">
         <div 
@@ -103,6 +108,24 @@ const Home = () => {
                 </CardContent>
               </Card>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <Testimonials />
+
+      {/* Registration Section */}
+      <section className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">Start Your Journey Today</h2>
+              <p className="text-muted-foreground">
+                Register now for a free consultation with our expert counselors
+              </p>
+            </div>
+            <RegistrationForm />
           </div>
         </div>
       </section>
