@@ -9,7 +9,11 @@ import {
 import { Button } from '@/components/ui/button';
 import { X } from 'lucide-react';
 
-const AnnouncementModal = () => {
+interface AnnouncementModalProps {
+  trigger?: boolean;
+}
+
+const AnnouncementModal = ({ trigger }: AnnouncementModalProps) => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -26,6 +30,13 @@ const AnnouncementModal = () => {
       return () => clearTimeout(timer);
     }
   }, []);
+
+  // Show modal when trigger prop changes to true
+  useEffect(() => {
+    if (trigger) {
+      setOpen(true);
+    }
+  }, [trigger]);
 
   const handleClose = () => {
     localStorage.setItem('announcement-seen', new Date().toDateString());

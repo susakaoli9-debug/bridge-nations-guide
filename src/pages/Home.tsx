@@ -1,8 +1,9 @@
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { GraduationCap, FileCheck, Briefcase, Users, Globe, Award } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import heroImage from '@/assets/hero-education.jpg';
 import AnnouncementModal from '@/components/AnnouncementModal';
 import Testimonials from '@/components/Testimonials';
@@ -10,6 +11,18 @@ import RegistrationForm from '@/components/RegistrationForm';
 
 const Home = () => {
   const { t } = useLanguage();
+  const location = useLocation();
+  const [showModal, setShowModal] = useState(false);
+
+  // Trigger modal when navigating to home
+  useEffect(() => {
+    // Only trigger if we're navigating from another page
+    if (location.state?.fromNav) {
+      setShowModal(true);
+      // Reset the trigger after showing
+      setTimeout(() => setShowModal(false), 100);
+    }
+  }, [location]);
 
   const features = [
     {
@@ -37,7 +50,7 @@ const Home = () => {
 
   return (
     <div className="flex flex-col">
-      <AnnouncementModal />
+      <AnnouncementModal trigger={showModal} />
       
       {/* Hero Section */}
       <section className="relative min-h-[600px] flex items-center justify-center overflow-hidden">

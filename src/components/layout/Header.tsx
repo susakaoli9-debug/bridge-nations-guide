@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -8,9 +8,16 @@ import LanguageToggler from '@/components/LanguageToggler';
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { t } = useLanguage();
+  const navigate = useNavigate();
+
+  const handleHomeClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    navigate('/', { state: { fromNav: true } });
+    setIsOpen(false);
+  };
 
   const navLinks = [
-    { to: '/', label: t('home') },
+    { to: '/', label: t('home'), isHome: true },
     { to: '/about', label: t('about') },
     { to: '/services', label: t('services') },
     { to: '/destination', label: t('destination') },
@@ -33,13 +40,24 @@ const Header = () => {
 
           <nav className="hidden lg:flex items-center space-x-6">
             {navLinks.map((link) => (
-              <Link
-                key={link.to}
-                to={link.to}
-                className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-              >
-                {link.label}
-              </Link>
+              link.isHome ? (
+                <a
+                  key={link.to}
+                  href={link.to}
+                  onClick={handleHomeClick}
+                  className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary cursor-pointer"
+                >
+                  {link.label}
+                </a>
+              ) : (
+                <Link
+                  key={link.to}
+                  to={link.to}
+                  className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+                >
+                  {link.label}
+                </Link>
+              )
             ))}
             <LanguageToggler />
           </nav>
@@ -59,14 +77,25 @@ const Header = () => {
         {isOpen && (
           <nav className="lg:hidden py-4 space-y-2">
             {navLinks.map((link) => (
-              <Link
-                key={link.to}
-                to={link.to}
-                className="block py-2 text-sm font-medium text-muted-foreground hover:text-primary"
-                onClick={() => setIsOpen(false)}
-              >
-                {link.label}
-              </Link>
+              link.isHome ? (
+                <a
+                  key={link.to}
+                  href={link.to}
+                  onClick={handleHomeClick}
+                  className="block py-2 text-sm font-medium text-muted-foreground hover:text-primary cursor-pointer"
+                >
+                  {link.label}
+                </a>
+              ) : (
+                <Link
+                  key={link.to}
+                  to={link.to}
+                  className="block py-2 text-sm font-medium text-muted-foreground hover:text-primary"
+                  onClick={() => setIsOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              )
             ))}
           </nav>
         )}
